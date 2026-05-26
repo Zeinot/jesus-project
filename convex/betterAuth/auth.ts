@@ -17,11 +17,17 @@ export const authComponent = createClient<DataModel, typeof schema>(
   },
 );
 
+// Parse trusted origins from env (comma-separated)
+const trustedOrigins = process.env.BETTER_AUTH_TRUSTED_ORIGINS
+  ? process.env.BETTER_AUTH_TRUSTED_ORIGINS.split(",").map((o) => o.trim())
+  : ["http://localhost:3000"];
+
 // Better Auth Options
 export const createAuthOptions = (ctx: GenericCtx<DataModel>) => {
   return {
     appName: "Project Jesus",
     baseURL: process.env.SITE_URL,
+    trustedOrigins,
     secret: process.env.BETTER_AUTH_SECRET,
     database: authComponent.adapter(ctx),
     emailAndPassword: {
