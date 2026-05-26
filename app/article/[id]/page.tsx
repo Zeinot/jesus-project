@@ -11,14 +11,15 @@ import { motion } from "framer-motion";
 import CredibilityBadge from "@/components/home/CredibilityBadge";
 import VoteButtons from "@/components/article/VoteButtons";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft, ExternalLink, BookOpen } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import SaveToCollectionButton from "@/components/article/SaveToCollectionButton";
 
 function stripHtml(html: string): string {
   if (!html) return "";
   return html
-    .replace(/<style[^>]*>.*?<\/style>/gs, "")
-    .replace(/<script[^>]*>.*?<\/script>/gs, "")
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/g, "")
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/g, "")
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/g, " ")
     .replace(/&amp;/g, "&")
@@ -207,12 +208,7 @@ export default function ArticlePage() {
                 Read original article
               </a>
             </Button>
-            <Button variant="outline" asChild className="w-full sm:w-auto">
-              <Link href="/collections" className="flex items-center justify-center gap-2">
-                <BookOpen className="h-4 w-4" />
-                Save to collection
-              </Link>
-            </Button>
+            <SaveToCollectionButton articleId={article._id} />
           </div>
         </motion.article>
       </div>
