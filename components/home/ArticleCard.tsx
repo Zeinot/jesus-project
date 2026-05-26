@@ -5,6 +5,22 @@ import { motion } from "framer-motion";
 import { Doc } from "@/convex/_generated/dataModel";
 import CredibilityBadge from "./CredibilityBadge";
 
+function stripHtml(html: string): string {
+  if (!html) return "";
+  return html
+    .replace(/<style[^>]*>.*?<\/style>/gs, "")
+    .replace(/<script[^>]*>.*?<\/script>/gs, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 interface ArticleCardProps {
   article: Doc<"articles">;
   categoryColor: string;
@@ -12,6 +28,7 @@ interface ArticleCardProps {
 
 export default function ArticleCard({ article, categoryColor }: ArticleCardProps) {
   const score = article.computedScore ?? 50;
+  const cleanSummary = stripHtml(article.summary);
   
   return (
     <Link href={`/article/${article._id}`}>
@@ -55,7 +72,7 @@ export default function ArticleCard({ article, categoryColor }: ArticleCardProps
             {article.title}
           </h3>
           <p className="line-clamp-2 text-xs text-muted-foreground md:text-sm">
-            {article.summary}
+            {cleanSummary}
           </p>
           
           {/* Footer */}

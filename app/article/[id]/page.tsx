@@ -14,6 +14,22 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, ExternalLink, BookOpen } from "lucide-react";
 import Link from "next/link";
 
+function stripHtml(html: string): string {
+  if (!html) return "";
+  return html
+    .replace(/<style[^>]*>.*?<\/style>/gs, "")
+    .replace(/<script[^>]*>.*?<\/script>/gs, "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export default function ArticlePage() {
   const params = useParams();
   const router = useRouter();
@@ -74,6 +90,8 @@ export default function ArticlePage() {
       </div>
     );
   }
+
+  const cleanSummary = stripHtml(article.summary);
 
   return (
     <div className="min-h-svh pb-20">
@@ -160,11 +178,13 @@ export default function ArticlePage() {
           )}
 
           {/* Summary */}
-          <div className="prose prose-sm max-w-none dark:prose-invert">
-            <p className="text-base leading-relaxed text-foreground/90 md:text-lg">
-              {article.summary}
-            </p>
-          </div>
+          {cleanSummary && (
+            <div className="prose prose-sm max-w-none dark:prose-invert">
+              <p className="text-base leading-relaxed text-foreground/90 md:text-lg">
+                {cleanSummary}
+              </p>
+            </div>
+          )}
 
           {/* Content */}
           {article.content && article.content !== article.summary && (
