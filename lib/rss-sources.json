@@ -1,0 +1,72 @@
+[
+  {
+    "url": "https://fivethirtyeight.com/features/feed/",
+    "name": "FiveThirtyEight",
+    "categorySlug": "political-statistical"
+  },
+  {
+    "url": "https://www.pewresearch.org/feed/",
+    "name": "Pew Research",
+    "categorySlug": "political-statistical"
+  },
+  {
+    "url": "https://www.nybooks.com/feed/",
+    "name": "NY Review of Books",
+    "categorySlug": "book-smart"
+  },
+  {
+    "url": "https://lrb.co.uk/the-paper/rss-feed/",
+    "name": "London Review of Books",
+    "categorySlug": "book-smart"
+  },
+  {
+    "url": "https://medium.com/feed/tag/self-improvement",
+    "name": "Medium - Self Improvement",
+    "categorySlug": "motivational"
+  },
+  {
+    "url": "https://jamesclear.com/feed",
+    "name": "James Clear",
+    "categorySlug": "motivational"
+  },
+  {
+    "url": "https://www.quantamagazine.org/feed/",
+    "name": "Quanta Magazine",
+    "categorySlug": "general-knowledge"
+  },
+  {
+    "url": "https://nautil.us/feed/",
+    "name": "Nautilus",
+    "categorySlug": "general-knowledge"
+  },
+  {
+    "url": "https://aeon.co/feed.rss",
+    "name": "Aeon",
+    "categorySlug": "conversational"
+  },
+  {
+    "url": "https://bigthink.com/rss.xml",
+    "name": "Big Think",
+    "categorySlug": "conversational"
+  },
+  {
+    "url": "https://www.psychologytoday.com/rss.xml",
+    "name": "Psychology Today",
+    "categorySlug": "psychological"
+  },
+  {
+    "url": "https://www.apa.org/news/psycport/rss.xml",
+    "name": "APA News",
+    "categorySlug": "psychological"
+  },
+  {
+    "url": "https://feeds.bloomberg.com/news.rss",
+    "name": "Bloomberg",
+    "categorySlug": "finance"
+  },
+  {
+    "url": "https://www.investopedia.com/rss.xml",
+    "name": "Investopedia",
+    "categorySlug": "finance"
+  }
+]
