@@ -52,6 +52,21 @@ function parseRSSItems(xmlText: string): Array<{
   return [];
 }
 
+function extractImageFromHtml(html: string): string | null {
+  // Look for img src in HTML content
+  const imgMatch = html.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+  if (imgMatch && imgMatch[1]) {
+    const src = imgMatch[1].trim();
+    // Filter out tiny icons, tracking pixels, and data URIs
+    if (src.startsWith("data:")) return null;
+    if (src.includes("icon") || src.includes("logo") || src.includes("avatar")) return null;
+    // Ensure absolute URL
+    if (src.startsWith("http")) return src;
+    if (src.startsWith("//")) return "https:" + src;
+  }
+  return null;
+}
+
 export const seedRSSFeeds = internalAction({
   handler: async (ctx): Promise<{ seeded: boolean; message?: string; count?: number }> => {
     const categories = await ctx.runQuery(api.categories.getCategories, {});
@@ -114,12 +129,18 @@ export const fetchRSSFeeds = internalAction({
 
           if (existing) continue;
 
+          // Try enclosure first, then extract from HTML content
+          let imageUrl: string | null = item.enclosure?.url || null;
+          if (!imageUrl && item.content) {
+            imageUrl = extractImageFromHtml(item.content);
+          }
+
           const articleId = await ctx.runMutation(api.rss.createArticle, {
             title: item.title || "Untitled",
             summary: item.contentSnippet || "",
             content: item.content || item.contentSnippet || "",
             url: item.link,
-            imageUrl: item.enclosure?.url || null,
+            imageUrl,
             categoryId: feed.categoryId,
             sourceName: feed.name,
             sourceUrl: feed.url,

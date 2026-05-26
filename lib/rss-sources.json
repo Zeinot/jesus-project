@@ -2,12 +2,12 @@
   {
     "url": "https://fivethirtyeight.com/features/feed/",
     "name": "FiveThirtyEight",
-    "categorySlug": "political-statistical"
+    "categorySlug": "political"
   },
   {
     "url": "https://www.pewresearch.org/feed/",
     "name": "Pew Research",
-    "categorySlug": "political-statistical"
+    "categorySlug": "statistical"
   },
   {
     "url": "https://www.nybooks.com/feed/",
